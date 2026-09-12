@@ -27,4 +27,5 @@ _Proceedings of the IEEE Intelligent Vehicles Symposium_, 921–928.
 
 Hutter, M., & Brewer, N. (2009). _Matching 2-D ellipses to 3-D circles with application to vehicle pose identification._ _arXiv:0912.3589 [cs.CV]._ [https://arxiv.org/abs/0912.3589](https://arxiv.org/abs/0912.3589)
 
-Ajmal, A., & Hussain, I. M. (2010). _Vehicle detection using morphological image processing technique._ _2010 International Conference on Multimedia Computing and Information Technology (MCIT), 65–68._ [https://doi.org/10.1109/MCIT.2010.5444851]([https://doi.org/10.1109/MCIT.2010.5444851)
+Ajmal, A., & Hussain, I. M. (2010). _Vehicle detection using morphological image processing technique._ _2010 International Conference on Multimedia Computing and Information Technology (MCIT), 65–68._ 
+[https://doi.org/10.1109/MCIT.2010.5444851]([https://doi.org/10.1109/MCIT.2010.5444851)
