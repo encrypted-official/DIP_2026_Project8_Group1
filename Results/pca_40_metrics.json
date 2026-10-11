@@ -1,0 +1,12 @@
+{
+  "method": "pca_edges",
+  "total_crops": 1822,
+  "valid_predictions": 1820,
+  "coverage_percent": 99.89,
+  "mae_deg": 11.15,
+  "median_error_deg": 6.282,
+  "p90_error_deg": 27.212,
+  "within_5_deg_percent": 43.19,
+  "within_10_deg_percent": 65.22,
+  "within_15_deg_percent": 77.69
+}

@@ -1,0 +1,12 @@
+{
+  "method": "hough_edges",
+  "total_crops": 1822,
+  "valid_predictions": 1819,
+  "coverage_percent": 99.84,
+  "mae_deg": 14.103,
+  "median_error_deg": 6.819,
+  "p90_error_deg": 39.133,
+  "within_5_deg_percent": 40.19,
+  "within_10_deg_percent": 62.67,
+  "within_15_deg_percent": 72.35
+}
