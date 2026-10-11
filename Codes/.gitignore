@@ -1,0 +1,8 @@
+# local code files
+crops/
+data/
+tests/
+
+# locally generated 
+__pycache__/
+results/
