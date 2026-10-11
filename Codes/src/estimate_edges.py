@@ -26,7 +26,7 @@ def estimate_axis_edges(image):
 
     angles = []
     weights = []
-    for line in lines[:, 0, :]:
+    for line in lines.reshape(-1, 4):
         x0, y0, x1, y1 = [float(v) for v in line]
         dx, dy = x1 - x0, y1 - y0
         length = float(np.hypot(dx, dy))
