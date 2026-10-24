@@ -38,3 +38,25 @@ tell us which end is the front.
 Difficulty 1 marks a vehicle cropped at the image boundary. By default, the crop script
 skips those rows so the first experiment is simpler. Add `--include-difficult` to include
 them in a later experiment and report that choice.
+
+## Week 5 dataset audit
+
+The audit script checks image/annotation pairing, readable image dimensions,
+and successfully parsed vehicle annotations.
+
+Each object row contains eight corner coordinates, a class name, a difficulty
+value, and a heading angle. The parser skips the first non-empty line because
+the current project implementation treats it as flight-height metadata.
+
+The crop extraction code creates an axis-aligned crop around the four OBB
+corners and adds approximately 10% padding. It records the crop path, source
+image, class, difficulty, heading, folded axis angle, and crop dimensions in
+metadata.csv.
+
+Run the audit with:
+
+    python -m src.audit_dataset --root data/DRASHTI-HaOBB --split val --out results/week5_audit
+
+Do not change the angle convention based on visual appearance alone. Confirm
+the annotation convention against representative labeled vehicles and record
+the verification before recalculating model metrics.
