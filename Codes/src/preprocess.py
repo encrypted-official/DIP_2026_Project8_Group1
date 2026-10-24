@@ -1,5 +1,5 @@
+"""Shared configurable preprocessing for orientation estimators."""
 import cv2
-import numpy as np
 
 
 def to_gray(image):
@@ -10,19 +10,26 @@ def to_gray(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 
-def clean_gray(image):
-    """Light denoising and local contrast enhancement; keep it conservative."""
+def clean_gray(image, blur_size=3, use_clahe=True):
+    """Grayscale, optional odd-sized Gaussian blur, optional CLAHE."""
     gray = to_gray(image)
     if gray is None:
         return None
-    gray = cv2.GaussianBlur(gray, (3, 3), 0)
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(4, 4))
-    return clahe.apply(gray)
+    if blur_size not in (1, 3, 5, 7):
+        raise ValueError("blur_size must be one of 1, 3, 5, 7")
+    if blur_size > 1:
+        gray = cv2.GaussianBlur(gray, (blur_size, blur_size), 0)
+    if use_clahe:
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(4, 4))
+        gray = clahe.apply(gray)
+    return gray
 
 
-def edge_map(image):
-    """Return a Canny edge map from the preprocessed crop."""
-    gray = clean_gray(image)
+def edge_map(image, low_threshold=50, high_threshold=150, blur_size=3, use_clahe=True):
+    """Return a Canny edge map using configurable preprocessing parameters."""
+    if low_threshold < 0 or high_threshold <= low_threshold:
+        raise ValueError("Require 0 <= low_threshold < high_threshold")
+    gray = clean_gray(image, blur_size=blur_size, use_clahe=use_clahe)
     if gray is None:
         return None
-    return cv2.Canny(gray, 50, 150)
+    return cv2.Canny(gray, int(low_threshold), int(high_threshold))
