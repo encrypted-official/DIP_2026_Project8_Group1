@@ -8,9 +8,9 @@ import pandas as pd
 from src.preprocess import edge_map
 
 
-def estimate_axis_pca(image):
+def estimate_axis_pca(image, low_threshold=50, high_threshold=150, blur_size=3, use_clahe=True):
     """Return an axis angle in 0–180 degrees, or None if there are too few edges."""
-    edges = edge_map(image)
+    edges = edge_map(image, low_threshold, high_threshold, blur_size, use_clahe)
     if edges is None:
         return None
 
