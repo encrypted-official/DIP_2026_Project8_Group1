@@ -1,16 +1,18 @@
-"""Basic tests for the Week 5 ablation configuration grid."""
+"""Week 6 ablation grid tests."""
 
 from src.ablation import build_configurations
 
-
-def test_ablation_grid_has_expected_number_of_configs():
+def test_week6_grid_has_48_configurations():
     configs = build_configurations()
-    # PCA and Hough: 3 blur sizes x 2 CLAHE states x 3 Canny pairs each.
-    # Moments: 3 blur sizes x 2 CLAHE states.
-    assert len(configs) == 42
-
+    assert len(configs) == 48
 
 def test_configurations_are_unique():
     configs = build_configurations()
-    normalized = [repr(sorted(c.items())) for c in configs]
+    normalized = [repr(sorted(config.items())) for config in configs]
     assert len(normalized) == len(set(normalized))
+
+def test_shadow_toggle_only_applies_to_moments():
+    configs = build_configurations()
+    shadow_configs = [c for c in configs if c["shadow_check"]]
+    assert len(shadow_configs) == 6
+    assert all(c["method"] == "otsu_moments" for c in shadow_configs)
