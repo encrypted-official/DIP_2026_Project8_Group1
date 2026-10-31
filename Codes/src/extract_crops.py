@@ -7,9 +7,8 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from src.angle_utils import heading_to_axis
+from src.angle_utils import heading_to_axis180
 from src.parse_annotations import read_vehicle_rows
-
 
 def find_image(image_dir, stem):
     """Find an image by file stem, without assuming its extension."""
@@ -18,7 +17,6 @@ def find_image(image_dir, stem):
         if path.exists():
             return path
     return None
-
 
 def crop_box(image, points, pad_frac=0.10):
     """Make an axis-aligned crop around the OBB; do not rotate it upright."""
@@ -39,7 +37,6 @@ def crop_box(image, points, pad_frac=0.10):
         return None, None
 
     return image[top:bottom, left:right].copy(), (left, top, right, bottom)
-
 
 def main():
     parser = argparse.ArgumentParser(description="Extract vehicle crops from DRASHTI-HaOBB.")
@@ -108,7 +105,7 @@ def main():
                 "class_name": obj["class_name"],
                 "difficulty": obj["difficulty"],
                 "heading_deg": round(obj["heading_deg"], 4),
-                "gt_axis_deg": round(heading_to_axis(obj["heading_deg"]), 4),
+                "gt_axis_deg": round(heading_to_axis180(obj["heading_deg"]), 4),
                 "x0": left, "y0": top, "x1": right, "y1": bottom,
                 "crop_width": int(crop.shape[1]),
                 "crop_height": int(crop.shape[0]),
@@ -131,7 +128,6 @@ def main():
     print(f"Vehicle crops saved: {len(meta_rows)}")
     print(f"Labels without a matching image: {missing_images}")
     print(f"Metadata: {csv_path}")
-
 
 if __name__ == "__main__":
     main()
