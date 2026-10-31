@@ -1,5 +1,3 @@
-"""Estimate an undirected axis by combining Hough line directions."""
-
 import argparse
 from pathlib import Path
 
@@ -8,7 +6,6 @@ import numpy as np
 import pandas as pd
 
 from src.preprocess import edge_map
-
 
 def estimate_axis_edges(image, low_threshold=50, high_threshold=150, blur_size=3, use_clahe=True):
     """Use Hough line segments; longer lines get more weight in the average."""
@@ -50,7 +47,6 @@ def estimate_axis_edges(image, low_threshold=50, high_threshold=150, blur_size=3
     axis_rad = 0.5 * np.arctan2(sin_sum, cos_sum)
     return float(np.degrees(axis_rad) % 180.0)
 
-
 def main():
     parser = argparse.ArgumentParser(description="Run Hough-line orientation estimation on crops.")
     parser.add_argument("--metadata", required=True)
@@ -74,7 +70,6 @@ def main():
     pd.DataFrame(preds).to_csv(out_path, index=False)
     valid = sum(pd.notna(row["pred_axis_deg"]) for row in preds)
     print(f"Saved {len(preds)} predictions ({valid} valid) to {out_path}")
-
 
 if __name__ == "__main__":
     main()
